@@ -1,0 +1,15 @@
+{
+  "razorpay": {
+    "keyId": "rzp_live_SSzAwKJApRwiFY",
+    "email": "health@nosh7.com",
+    "contact": "+918905196948"
+  },
+  "social": {
+    "instagram": "https://instagram.com",
+    "linkedin": "https://linkedin.com",
+    "facebook": "https://facebook.com",
+    "twitter": "https://twitter.com",
+    "youtube": "https://youtube.com",
+    "email": "hello@businessfirst.com"
+  }
+}
