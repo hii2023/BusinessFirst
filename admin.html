@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business First - Admin Panel</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -18,7 +13,6 @@
             padding: 20px;
             min-height: 100vh;
         }
-
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -27,22 +21,14 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
-
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 30px 20px;
             text-align: center;
         }
-
-        .header h1 {
-            font-size: 2rem;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            opacity: 0.9;
-        }
+        .header h1 { font-size: 2rem; margin-bottom: 5px; }
+        .header p { opacity: 0.9; }
 
         .tabs {
             display: flex;
@@ -50,7 +36,6 @@
             background: #f9f9f9;
             overflow-x: auto;
         }
-
         .tab-button {
             flex: 1;
             padding: 15px 20px;
@@ -64,36 +49,22 @@
             border-bottom: 3px solid transparent;
             min-width: 150px;
         }
-
         .tab-button.active {
             color: #667eea;
             border-bottom-color: #667eea;
             background: white;
         }
-
-        .tab-button:hover {
-            background: white;
-            color: #667eea;
-        }
+        .tab-button:hover { background: white; color: #667eea; }
 
         .content {
             padding: 30px 20px;
             max-height: 500px;
             overflow-y: auto;
         }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
+        .section { margin-bottom: 25px; }
         .section h3 {
             color: #667eea;
             margin-bottom: 15px;
@@ -101,11 +72,7 @@
             border-bottom: 2px solid #f0f0f0;
             padding-bottom: 10px;
         }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
+        .form-group { margin-bottom: 15px; }
         label {
             display: block;
             margin-bottom: 5px;
@@ -113,8 +80,7 @@
             color: #333;
             font-size: 0.95rem;
         }
-
-        input, textarea, select {
+        input, textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -123,18 +89,11 @@
             font-size: 1rem;
             transition: border-color 0.3s;
         }
-
-        input:focus, textarea:focus, select:focus {
+        input:focus, textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
         .info-box {
             background: #e7f3ff;
             border-left: 4px solid #667eea;
@@ -144,7 +103,6 @@
             font-size: 0.95rem;
             color: #0c5a80;
         }
-
         .razorpay-note {
             background: #fff3cd;
             border-left: 4px solid #ffc107;
@@ -153,7 +111,6 @@
             margin-bottom: 20px;
             color: #856404;
         }
-
         .footer-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -162,17 +119,14 @@
             padding-top: 20px;
             border-top: 2px solid #eee;
         }
-
         .btn-primary {
             background: #667eea;
             color: white;
         }
-
         .btn-secondary {
             background: #f0f0f0;
             color: #333;
         }
-
         button {
             padding: 12px 24px;
             border: none;
@@ -182,31 +136,17 @@
             transition: all 0.3s;
             font-size: 1rem;
         }
-
         .btn-primary:hover {
             background: #5568d3;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
+        .btn-secondary:hover { background: #e0e0e0; }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.5rem;
-            }
-
-            .tab-button {
-                padding: 12px 10px;
-                font-size: 0.9rem;
-                min-width: auto;
-            }
-
-            .footer-actions {
-                grid-template-columns: 1fr;
-            }
+            .header h1 { font-size: 1.5rem; }
+            .tab-button { padding: 12px 10px; font-size: 0.9rem; min-width: auto; }
+            .footer-actions { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -214,7 +154,7 @@
     <div class="container">
         <div class="header">
             <h1>🎨 Business First Admin Panel</h1>
-            <p>Manage your website content and Razorpay settings</p>
+            <p>Manage Razorpay & social media settings</p>
         </div>
 
         <div class="tabs">
@@ -223,54 +163,35 @@
         </div>
 
         <div class="content">
-            <!-- Razorpay Tab -->
             <div id="razorpay" class="tab-content active">
                 <div class="razorpay-note">
-                    ⚠️ <strong>Important:</strong> Get your API keys from <a href="https://razorpay.com/dashboard" target="_blank" style="color: #856404; text-decoration: underline;">Razorpay Dashboard</a>
+                    ⚠️ <strong>Important:</strong> Get your API keys from
+                    <a href="https://razorpay.com/dashboard" target="_blank" style="color:#856404;text-decoration:underline;">
+                        Razorpay Dashboard
+                    </a>
                 </div>
                 <div class="section">
                     <h3>Razorpay Configuration</h3>
                     <div class="info-box">
-                        📝 Follow these steps:
-                        <ol style="margin-top: 10px; padding-left: 20px;">
-                            <li>Go to <a href="https://razorpay.com/dashboard" target="_blank" style="color: #0c5a80;">razorpay.com/dashboard</a></li>
-                            <li>Click Settings → API Keys</li>
-                            <li>Copy your Key ID (starts with rzp_test_ or rzp_live_)</li>
-                            <li>Paste below and click Export</li>
-                        </ol>
+                        Steps: Dashboard → Settings → API Keys → Copy Key ID → Paste below.
                     </div>
                     <div class="form-group">
                         <label>Razorpay Key ID</label>
-                        <input type="text" id="razorpayKeyId" placeholder="rzp_test_XXXXXXXXXXXXXX">
-                        <small style="color: #666; margin-top: 5px; display: block;">Get from: Dashboard → Settings → API Keys</small>
+                        <input type="text" id="razorpayKeyId" placeholder="rzp_live_XXXXXXXXXXXXXX">
                     </div>
                     <div class="form-group">
                         <label>Business Email</label>
-                        <input type="email" id="razorpayEmail" placeholder="hello@businessfirst.com">
+                        <input type="email" id="razorpayEmail" placeholder="health@nosh7.com">
                     </div>
                     <div class="form-group">
                         <label>Business Contact Number</label>
-                        <input type="tel" id="razorpayContact" placeholder="+1234567890">
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h3>Payment Test</h3>
-                    <div class="info-box">
-                        ℹ️ <strong>Test Card Numbers:</strong>
-                        <ul style="margin-top: 10px; padding-left: 20px;">
-                            <li>Visa: <code>4111 1111 1111 1111</code></li>
-                            <li>Mastercard: <code>5555 5555 5555 4444</code></li>
-                            <li>Expiry: Any future date (e.g., 12/25)</li>
-                            <li>CVV: Any 3 digits (e.g., 123)</li>
-                        </ul>
+                        <input type="tel" id="razorpayContact" placeholder="+918905196948">
                     </div>
                 </div>
             </div>
 
-            <!-- Social Media Tab -->
             <div id="social" class="tab-content">
-                <div class="info-box">✏️ Update your social media profile links</div>
+                <div class="info-box">Update social media profile links</div>
                 <div class="section">
                     <h3>Social Media Links</h3>
                     <div class="form-group">
@@ -295,12 +216,11 @@
                     </div>
                     <div class="form-group">
                         <label>✉️ Email:</label>
-                        <input type="email" id="socialEmail" placeholder="hello@businessfirst.com">
+                        <input type="email" id="socialEmail" placeholder="health@nosh7.com">
                     </div>
                 </div>
             </div>
 
-            <!-- Footer Actions -->
             <div class="footer-actions">
                 <button class="btn-primary" onclick="exportSettings()">📥 Export Settings</button>
                 <button class="btn-secondary" onclick="resetSettings()">🔄 Reset All</button>
@@ -311,9 +231,9 @@
     <script>
         const defaultSettings = {
             razorpay: {
-                keyId: "YOUR_RAZORPAY_KEY_ID",
-                email: "hello@businessfirst.com",
-                contact: "+1234567890"
+                keyId: "rzp_live_SSzAwKJApRwiFY",
+                email: "health@nosh7.com",
+                contact: "+918905196948"
             },
             social: {
                 instagram: "https://instagram.com",
@@ -321,7 +241,7 @@
                 facebook: "https://facebook.com",
                 twitter: "https://twitter.com",
                 youtube: "https://youtube.com",
-                email: "hello@businessfirst.com"
+                email: "health@nosh7.com"
             }
         };
 
@@ -332,7 +252,6 @@
             document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
-
             if (tabName === 'razorpay') loadRazorpayForm();
             if (tabName === 'social') loadSocialForm();
         }
@@ -344,10 +263,12 @@
         }
 
         function loadSocialForm() {
-            Object.keys(settings.social).forEach(key => {
-                const el = document.getElementById('social' + key.charAt(0).toUpperCase() + key.slice(1));
-                if (el) el.value = settings.social[key];
-            });
+            document.getElementById('socialInstagram').value = settings.social.instagram;
+            document.getElementById('socialLinkedin').value = settings.social.linkedin;
+            document.getElementById('socialFacebook').value = settings.social.facebook;
+            document.getElementById('socialTwitter').value = settings.social.twitter;
+            document.getElementById('socialYoutube').value = settings.social.youtube;
+            document.getElementById('socialEmail').value = settings.social.email;
         }
 
         function exportSettings() {
@@ -364,23 +285,22 @@
             localStorage.setItem('businessFirstSettings', JSON.stringify(settings));
 
             const dataStr = JSON.stringify(settings, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'business-first-settings.json';
-            link.click();
-
-            alert('✅ Settings exported and saved locally!');
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'business-first-settings.json';
+            a.click();
+            alert('Settings exported and saved to your computer.');
         }
 
         function resetSettings() {
-            if (confirm('Are you sure? This will reset all settings to defaults.')) {
+            if (confirm('Reset all settings to defaults?')) {
                 settings = JSON.parse(JSON.stringify(defaultSettings));
                 localStorage.setItem('businessFirstSettings', JSON.stringify(settings));
                 loadRazorpayForm();
                 loadSocialForm();
-                alert('✅ Settings reset to defaults');
+                alert('Settings reset to defaults.');
             }
         }
 
