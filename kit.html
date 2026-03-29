@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Altaf — International Freelance Launch Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Archivo:wght@300;400;500;600;700&family=Archivo+Narrow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0D0D0D;
+    --paper: #F7F3EE;
+    --accent: #C8522A;
+    --gold: #D4A843;
+    --muted: #7A7268;
+    --rule: #E0D9CF;
+    --dark-bg: #1A1612;
+    --highlight: #FFF3E0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  .kit-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--dark-bg);
+    border-bottom: 2px solid var(--accent);
+    padding: 0 20px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .nav-tab {
+    padding: 14px 16px;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+  }
+
+  .nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .nav-tab:hover { color: #fff; }
+
+  /* HERO */
+  .hero {
+    background: var(--dark-bg);
+    padding: 40px 24px 36px;
+    text-align: center;
+    border-bottom: 1px solid #2A2520;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 6vw, 44px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .hero h1 em { color: var(--gold); font-style: italic; }
+
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* SECTIONS */
+  .section { display: none; padding: 24px 20px 60px; max-width: 720px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* TYPOGRAPHY */
+  .section-header {
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-label {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 8px;
+    font-weight: 300;
+  }
+
+  /* BLOCKS */
+  .block {
+    margin-bottom: 28px;
+  }
+
+  .block-label {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .block-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .copy-box {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 18px 20px;
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--ink);
+    position: relative;
+    white-space: pre-wrap;
+    font-family: 'Archivo', sans-serif;
+  }
+
+  .copy-box.mono {
+    font-family: 'Archivo Narrow', monospace;
+    font-size: 13px;
+    background: #FAFAF8;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .copy-box:hover .copy-btn { opacity: 1; }
+
+  .note-box {
+    background: var(--highlight);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: #6B4A1A;
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+
+  .note-box strong { font-weight: 600; display: block; margin-bottom: 2px; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* TAGS */
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .skill-tag {
+    background: var(--dark-bg);
+    color: var(--gold);
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .checklist li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 13.5px;
+    line-height: 1.55;
+    padding: 10px 14px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+  }
+
+  .checklist li .icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .checklist li strong { font-weight: 600; }
+
+  /* RATE TABLE */
+  .rate-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .rate-table th {
+    background: var(--dark-bg);
+    color: var(--gold);
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .rate-table td { padding: 10px 14px; border-bottom: 1px solid var(--rule); background: #fff; vertical-align: top; }
+  .rate-table tr:last-child td { border-bottom: none; }
+  .rate-table .highlight-row td { background: #FFF8EE; font-weight: 500; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: var(--rule); }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+
+  .tl-week {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .tl-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .tl-body { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ONE-PAGER */
+  .onepager {
+    background: var(--dark-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .op-header {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid #2A2520;
+  }
+
+  .op-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .op-tagline {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  .op-body { padding: 20px 24px; }
+
+  .op-section-title {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 10px;
+    margin-top: 18px;
+  }
+
+  .op-section-title:first-child { margin-top: 0; }
+
+  .op-problem {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .op-service-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .op-service-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+  }
+  .op-service-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  .op-proof {
+    background: rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    border-left: 3px solid var(--gold);
+  }
+
+  .op-prices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .op-price-item {
+    background: rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .op-price-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .op-price-label { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.5px; }
+
+  .op-cta {
+    margin-top: 20px;
+    padding: 14px;
+    background: var(--accent);
+    border-radius: 6px;
+    text-align: center;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  hr.divider { border: none; border-top: 1px solid var(--rule); margin: 28px 0; }
+
+  .pill {
+    display: inline-block;
+    background: var(--highlight);
+    color: var(--accent);
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">International Freelance Launch Kit</div>
+  <h1>SEO for <em>Food Brands</em><br>— Your Global Offer</h1>
+  <p class="hero-sub">Built for Altaf · Ahmedabad → World · 4 assets, ready to deploy</p>
+</div>
+
+<nav class="kit-nav">
+  <button class="nav-tab active" onclick="switchTab('upwork', this)">① Upwork Profile</button>
+  <button class="nav-tab" onclick="switchTab('linkedin', this)">② LinkedIn</button>
+  <button class="nav-tab" onclick="switchTab('email', this)">③ Cold Email</button>
+  <button class="nav-tab" onclick="switchTab('onepager', this)">④ One-Pager</button>
+  <button class="nav-tab" onclick="switchTab('plan', this)">⑤ 30-Day Plan</button>
+</nav>
+
+<!-- =================== UPWORK =================== -->
+<div class="section active" id="tab-upwork">
+  <div class="section-header">
+    <div class="section-label">Asset 01 — Upwork</div>
+    <div class="section-title">Profile + Proposal Template</div>
+    <p class="section-desc">Copy these word-for-word. Customise the [brackets]. Do not sound generic — your story is your edge.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Profile Title</div>
+    <div class="copy-box">SEO Specialist for Restaurants, Food Brands & Cloud Kitchens
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="note-box"><strong>Why this works</strong>Upwork's algorithm matches titles to client search terms. Restaurant owners search "restaurant SEO" not "SEO expert." Niching the title gets you in front of the right buyer immediately.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Hourly Rate to Set</div>
+    <div class="copy-box mono">Start: $25–$35/hour
+After 3 reviews: $45–$60/hour
+Project-based: $500–$1,500 per audit+fix
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="note-box"><strong>Note</strong>Never start at $10. It signals low quality. $25–$35 is credible for someone with a proven case study. Raise after your first 3 five-star reviews.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Profile Overview (copy this exactly)</div>
+    <div class="copy-box">I help restaurants, food delivery brands, and cloud kitchens get found on Google — and turn that traffic into orders.
+
+Here's what makes me different: I don't just do SEO theory. I run a vegetarian cloud kitchen in Ahmedabad, India, listed on Zomato and Swiggy. I've taken our website from a 74/100 to a 95/100 technical SEO score, built structured data schemas for food businesses, and studied the competitive SEO landscape of healthy food brands across multiple markets.
+
+I understand the food business from the inside — how customers search, what they click, and what gets a restaurant to page one.
+
+What I do for food brand clients:
+→ Technical SEO audits (Core Web Vitals, schema, indexing, mobile)
+→ Local SEO for restaurants with multiple locations
+→ Google Business Profile optimisation
+→ Keyword strategy for menus, delivery pages, and food blogs
+→ On-page fixes with clear before/after reporting
+→ Competitor gap analysis
+
+I'm async-friendly, deadline-driven, and I deliver audits with Loom walkthroughs so you understand exactly what was done and why.
+
+If you run a food brand that should be ranking higher — let's talk.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Skills Tags to Add on Upwork</div>
+    <div class="tag-row">
+      <span class="skill-tag">SEO</span>
+      <span class="skill-tag">Local SEO</span>
+      <span class="skill-tag">Technical SEO</span>
+      <span class="skill-tag">Google Business Profile</span>
+      <span class="skill-tag">Restaurant Marketing</span>
+      <span class="skill-tag">Food & Beverage</span>
+      <span class="skill-tag">Schema Markup</span>
+      <span class="skill-tag">SEO Audit</span>
+      <span class="skill-tag">Core Web Vitals</span>
+      <span class="skill-tag">Keyword Research</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Portfolio Project to Add (use NOSH7 as case study)</div>
+    <div class="copy-box">Title: From 74 to 95 — Technical SEO Overhaul for a Cloud Kitchen
+
+Description:
+Conducted a full technical SEO audit and implementation for NOSH7, a vegetarian cloud kitchen in Ahmedabad, India. Starting score: 74/100.
+
+Work completed:
+• Fixed HTTP-to-HTTPS redirect chain
+• Implemented JSON-LD structured data (Restaurant, Menu, LocalBusiness schema)
+• Resolved canonical tag conflicts across two domains
+• Added security headers (HSTS, CSP, X-Frame-Options)
+• Cleaned and resubmitted XML sitemap
+• Optimised meta titles and descriptions for local food keywords
+• Set up IndexNow for faster indexing on Bing
+
+Result: Technical SEO score improved from 74/100 to 95/100. Page indexed within 48 hours of sitemap resubmission.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="block">
+    <div class="block-label">Proposal Template — Use for Every Job Application</div>
+    <div class="copy-box">Hi [Client Name],
+
+I read your job post carefully — [mention one specific detail from their post, e.g., "you mentioned your restaurant isn't ranking for delivery keywords in your area"].
+
+I specialise in SEO specifically for food businesses — restaurants, delivery brands, and cloud kitchens. I run one myself, so I understand how customers search for food, what your Google Business Profile needs, and why most restaurant websites rank poorly despite good content.
+
+Here's exactly what I'd do for your project:
+
+1. [Specific task from their job post]
+2. [Second specific task]
+3. [Deliverable — audit doc / keyword map / fixed pages]
+
+Timeline: [X days]
+I'll deliver a Loom walkthrough with every audit so you know exactly what was done.
+
+One question before I send a full proposal: Is your main goal right now more visibility on Google Maps, or ranking for delivery-related keywords on search?
+
+Looking forward to it,
+Altaf
+[Your Upwork Profile Link]
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="note-box"><strong>The golden rule of Upwork proposals</strong>Never paste the same proposal twice. Change the first paragraph for every job. Clients can tell. The question at the end gets a reply — replies lead to contracts 3x more than silent proposals.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">First Week on Upwork — Action Checklist</div>
+    <ul class="checklist">
+      <li><span class="icon">①</span><div>Complete your profile 100% — photo, overview, portfolio, skills, hourly rate. Upwork suppresses incomplete profiles.</div></li>
+      <li><span class="icon">②</span><div>Add the NOSH7 case study as a portfolio project with before/after screenshots.</div></li>
+      <li><span class="icon">③</span><div>Apply to <strong>5 jobs per day</strong> for 2 weeks. Not 2. Not 10. Five. Consistent volume beats sporadic bursts.</div></li>
+      <li><span class="icon">④</span><div>Target jobs posted <strong>within the last 24 hours</strong> — early proposals get 3x more views.</div></li>
+      <li><span class="icon">⑤</span><div>Accept your first project at a slightly lower rate for the review. One 5-star review changes your placement immediately.</div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- =================== LINKEDIN =================== -->
+<div class="section" id="tab-linkedin">
+  <div class="section-header">
+    <div class="section-label">Asset 02 — LinkedIn</div>
+    <div class="section-title">Positioning + Bio + Banner Strategy</div>
+    <p class="section-desc">LinkedIn is your proof-of-work platform. Clients Google you before hiring. This is what they find.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label">LinkedIn Headline (120 characters)</div>
+    <div class="copy-box">SEO for Food Brands & Restaurants | I run a cloud kitchen — I know how your customers search | Helping F&B businesses rank & grow
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="note-box"><strong>Why the "I run a cloud kitchen" line</strong>It's a pattern interrupt. Everyone else writes "SEO Expert | 5 years experience." You write something true that immediately separates you from 10,000 generic SEO profiles.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">LinkedIn About Section</div>
+    <div class="copy-box">I do SEO for food businesses. And I run one.
+
+NOSH7 is my vegetarian cloud kitchen in Ahmedabad — listed on Zomato and Swiggy, delivering salad subscriptions across the city. Building it taught me things no SEO course ever would: how hungry customers actually search, what makes a food listing rank on Google Maps, and why most restaurant websites are invisible despite having great menus.
+
+That insider knowledge is what I bring to food brand clients worldwide.
+
+─────────────────────────
+What I work on:
+─────────────────────────
+→ Technical SEO audits for food & F&B websites
+→ Local SEO for restaurants and delivery brands
+→ Google Business Profile setup and optimisation
+→ Structured data (schema markup) for food businesses
+→ Keyword strategy for menus, delivery pages, blog content
+→ Competitor gap analysis and ranking roadmaps
+
+─────────────────────────
+Proof of work:
+─────────────────────────
+Took NOSH7's own website from a 74/100 to a 95/100 technical SEO score — fixing indexing issues, implementing JSON-LD schema, resolving canonical conflicts, and cutting page load time. The work is documented and available as a case study.
+
+─────────────────────────
+Who I work with:
+─────────────────────────
+Independent restaurant owners, food delivery startups, ghost kitchen operators, and F&B brands that want more organic visibility without burning budget on ads.
+
+If your food brand should be ranking higher — I'd love to look at what's holding it back.
+
+📩 DM me or email: [your email]
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">LinkedIn Banner Text (get this designed on Canva)</div>
+    <div class="copy-box">SEO SPECIALIST FOR FOOD BRANDS
+"I run a cloud kitchen. I know how your customers search."
+→ Technical SEO  → Local SEO  → Restaurant Rankings
+[your website or Upwork profile URL]
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="note-box"><strong>Banner tip</strong>Dark background, white/gold text, one strong line. Add a photo of a salad or your NOSH7 branding to make it instantly memorable. Size: 1584 × 396px on Canva.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">First LinkedIn Post — Publish This to Launch</div>
+    <div class="copy-box">I run a cloud kitchen. And it's made me a better SEO consultant.
+
+Here's what building NOSH7 taught me about how food customers actually search:
+
+1. They don't search "best salad." They search "healthy lunch near me" or "salad delivery [area name]" — location + intent keywords matter infinitely more than generic terms.
+
+2. Google Maps ranking and website ranking are two different games. Most restaurant owners optimise for one and ignore the other.
+
+3. Schema markup (the code that tells Google you're a restaurant, your hours, your menu) is almost universally missing from food brand websites. It's free to add and it changes rankings within weeks.
+
+4. A 2-second delay in page load on mobile loses you customers. Mobile users ordering food are impatient — and Google knows it.
+
+I've applied all of this to my own business. Now I'm helping food brands outside India do the same.
+
+If you run a restaurant, food delivery brand, or cloud kitchen — I'd love to look at your SEO for free and tell you the top 3 things holding you back.
+
+Drop a comment or DM me. 👇
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="note-box"><strong>Post strategy</strong>Publish this on Day 1. Then post once a week — short insights from your SEO work. Consistency over 60 days builds inbound. Tag it: #SEO #RestaurantMarketing #FoodBusiness #LocalSEO</div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">LinkedIn Connection Request Note (for targeting food brand owners)</div>
+    <div class="copy-box">Hi [Name] — noticed you run [Restaurant/Brand Name]. I specialise in SEO specifically for food businesses. Would love to connect and share a few quick ranking tips for your category. No pitch, just useful stuff.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+  </div>
+</div>
+
+<!-- =================== COLD EMAIL =================== -->
+<div class="section" id="tab-email">
+  <div class="section-header">
+    <div class="section-label">Asset 03 — Cold Outreach</div>
+    <div class="section-title">Cold Email Sequence (3 emails)</div>
+    <p class="section-desc">Target: US/UK independent restaurant owners, food delivery startups, ghost kitchen operators. Find them on Google Maps, Yelp, or LinkedIn. Send in order, 3–4 days apart.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label">How to Find Targets</div>
+    <ul class="checklist">
+      <li><span class="icon">🔍</span><div>Google Maps: Search "healthy restaurant [US city]" → visit their website → check if it has basic SEO issues (no meta description, no schema, slow mobile load). If yes — they're a lead.</div></li>
+      <li><span class="icon">🔍</span><div>LinkedIn: Search "restaurant owner" + "food delivery" + location filter (US, UK, Australia). Filter by 2nd connections.</div></li>
+      <li><span class="icon">🔍</span><div>Find email: Use Hunter.io (free tier) or check their website's contact page. Most small restaurant owners list their email publicly.</div></li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <div class="block">
+    <div class="pill">Email 1 of 3 — Day 1</div>
+    <div class="block-label">Subject Line</div>
+    <div class="copy-box">Quick SEO thing I noticed about [Restaurant Name]
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="block-label" style="margin-top:12px">Body</div>
+    <div class="copy-box">Hi [First Name],
+
+I was looking up [Restaurant Name] on Google while researching food businesses in [City] — and noticed something that's probably costing you search visibility.
+
+Your website doesn't have structured data (schema markup) set up. This is the code that tells Google you're a restaurant — your hours, menu, location, and cuisine type. Without it, Google is guessing. With it, you're eligible for rich results in search (star ratings, hours, menu previews).
+
+It's a 2–3 hour fix. And for a local restaurant, it can move you up in both regular search and Google Maps results.
+
+I specialise in SEO for food businesses — I run a cloud kitchen myself, so I understand the space from the inside.
+
+Would it be useful if I sent you a 5-minute Loom video showing exactly what's missing on your site and how to fix it? No cost, no obligation.
+
+Altaf
+[Title: SEO for Food Brands]
+[Email / LinkedIn / Upwork URL]
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="note-box"><strong>Why this works</strong>You lead with a specific, real observation — not "I can help you with SEO." You offer free value (a Loom video) which is low friction to say yes to. The Loom becomes your proof of skill.</div>
+  </div>
+
+  <div class="block">
+    <div class="pill">Email 2 of 3 — Day 4 (if no reply)</div>
+    <div class="block-label">Subject Line</div>
+    <div class="copy-box">Re: [Restaurant Name] — one more thing
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="block-label" style="margin-top:12px">Body</div>
+    <div class="copy-box">Hi [First Name],
+
+Following up on my last note — wanted to share one more thing I noticed.
+
+I ran a quick check on [Restaurant Name]'s Google Business Profile. Your [hours / photos / review response / menu] section appears to be [incomplete / outdated / missing]. GBP is the single biggest factor in local food search rankings — more than your website in most cases.
+
+Restaurants that actively manage their GBP tend to rank in the local 3-pack (the map results at the top of Google). Right now, [competitor name if you can find one] is sitting above you for "[your cuisine] in [city]."
+
+I'd love to put together a quick audit — 5 minutes of your time to review it, nothing to install or set up.
+
+Worth a look?
+
+Altaf
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+  </div>
+
+  <div class="block">
+    <div class="pill">Email 3 of 3 — Day 8 (final follow-up)</div>
+    <div class="block-label">Subject Line</div>
+    <div class="copy-box">Closing the loop on [Restaurant Name]
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="block-label" style="margin-top:12px">Body</div>
+    <div class="copy-box">Hi [First Name],
+
+Last note from me — I know inboxes get busy.
+
+I put together a short 3-minute Loom audit of [Restaurant Name]'s website and Google listing. I'll send it over if you'd like — it shows the exact 3 things I'd fix first to improve your local rankings.
+
+If it's not the right time, completely understood. I'll leave it here.
+
+Either way — good luck with [Restaurant Name]. It looks like a great place.
+
+Altaf
+[Upwork / LinkedIn / Email]
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+    <div class="note-box"><strong>The sequence logic</strong>Email 1 = specific observation. Email 2 = second specific observation (different topic). Email 3 = low-pressure close with a gift (the Loom). Three emails, 8 days, done. Never chase beyond this — move to the next prospect.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Volume Target (apply 1% rule)</div>
+    <table class="rate-table">
+      <tr><th>Action</th><th>Weekly Target</th><th>Expected Output</th></tr>
+      <tr><td>Emails sent</td><td>30</td><td>—</td></tr>
+      <tr><td>Replies received</td><td>3–6</td><td>10% reply rate</td></tr>
+      <tr><td>Loom audits sent</td><td>3–4</td><td>—</td></tr>
+      <tr class="highlight-row"><td>Paying clients/month</td><td>—</td><td>1–2 from 120 emails</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- =================== ONE-PAGER =================== -->
+<div class="section" id="tab-onepager">
+  <div class="section-header">
+    <div class="section-label">Asset 04 — Service One-Pager</div>
+    <div class="section-title">Send This When a Lead Asks "What Do You Do?"</div>
+    <p class="section-desc">This is your PDF/shareable page. Use it on Upwork, in email replies, on LinkedIn. It replaces a 10-minute explanation.</p>
+  </div>
+
+  <div class="onepager">
+    <div class="op-header">
+      <div class="op-name">Altaf</div>
+      <div class="op-tagline">SEO for Food Brands, Restaurants & Cloud Kitchens</div>
+    </div>
+    <div class="op-body">
+      <div class="op-section-title">The Problem I Solve</div>
+      <div class="op-problem">"Your restaurant has great food and zero Google visibility. Customers are searching for exactly what you serve — but finding your competitor instead."</div>
+
+      <div class="op-section-title">What I Do</div>
+      <ul class="op-service-list">
+        <li>Technical SEO audit — find and fix what's hurting your rankings</li>
+        <li>Local SEO + Google Business Profile optimisation</li>
+        <li>Schema markup (Restaurant, Menu, LocalBusiness structured data)</li>
+        <li>Keyword strategy for delivery pages, menus, and food content</li>
+        <li>Competitor gap analysis — rank for what they rank for</li>
+        <li>Monthly SEO retainer with clear reporting</li>
+      </ul>
+
+      <div class="op-section-title">Why Me</div>
+      <div class="op-proof">I run NOSH7 — a cloud kitchen in Ahmedabad, India, listed on Zomato and Swiggy. I took our own website from a 74/100 to a 95/100 technical SEO score. I understand food businesses from the inside, not just from a spreadsheet.</div>
+
+      <div class="op-section-title">Pricing</div>
+      <div class="op-prices">
+        <div class="op-price-item">
+          <div class="op-price-num">$500</div>
+          <div class="op-price-label">One-time audit + fix report</div>
+        </div>
+        <div class="op-price-item">
+          <div class="op-price-num">$800</div>
+          <div class="op-price-label">Audit + implementation</div>
+        </div>
+        <div class="op-price-item">
+          <div class="op-price-num">$600</div>
+          <div class="op-price-label">/mo retainer — ongoing SEO</div>
+        </div>
+        <div class="op-price-item">
+          <div class="op-price-num">Free</div>
+          <div class="op-price-label">15-min discovery call</div>
+        </div>
+      </div>
+
+      <div class="op-cta">📩 Let's talk → [your email] · [Upwork link] · [LinkedIn]</div>
+    </div>
+  </div>
+
+  <div class="note-box"><strong>How to use this one-pager</strong>Copy the content above into a Canva doc (use a dark template). Export as PDF. Attach it to cold emails, Upwork proposals, and LinkedIn DMs. A designed PDF gets read. A wall of text in an email does not.</div>
+</div>
+
+<!-- =================== 30-DAY PLAN =================== -->
+<div class="section" id="tab-plan">
+  <div class="section-header">
+    <div class="section-label">Asset 05 — Launch Roadmap</div>
+    <div class="section-title">Your First 30 Days</div>
+    <p class="section-desc">Zero to first international client. Realistic, sequential, no fluff.</p>
+  </div>
+
+  <div class="block">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-week">Week 1 — Build</div>
+        <div class="tl-title">Set up your presence</div>
+        <div class="tl-body">Create Upwork profile using the copy above. Set up LinkedIn with the new headline + About. Write the NOSH7 case study as a portfolio piece. Install Loom (free) — you'll use it to record quick audits. Create a simple email signature with your Upwork link.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-week">Week 2 — Launch</div>
+        <div class="tl-title">First applications + first outreach</div>
+        <div class="tl-body">Apply to 5 Upwork jobs/day. Search "restaurant SEO," "local SEO food," "Google Business Profile." Also publish the LinkedIn launch post. Send the first 30 cold emails (10/day, 3 days). Focus on US cities with strong independent restaurant scenes: Austin, Portland, Nashville, Denver.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-week">Week 3 — Warm Up</div>
+        <div class="tl-title">Follow up + first calls</div>
+        <div class="tl-body">Send Email 2 to non-responders. Accept any Upwork interview immediately — response speed matters for ranking. Offer a free 15-minute Loom audit to any prospect who replies. The Loom is your sales tool — it shows skill without a live call across time zones.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-week">Week 4 — Close</div>
+        <div class="tl-title">Convert to first paid project</div>
+        <div class="tl-body">Send Email 3 to all cold leads. For any warm Upwork leads, offer a small fixed-price starter project ($150–$250 audit) to remove risk for the client. One paid project + one 5-star review changes everything. After first review, raise your rate and tighten your niche pitch.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="block">
+    <div class="block-label">Pricing Ladder — Evolve as You Win Reviews</div>
+    <table class="rate-table">
+      <tr><th>Stage</th><th>Offer</th><th>Price (USD)</th><th>Goal</th></tr>
+      <tr><td>0 reviews</td><td>Mini SEO audit (Loom)</td><td>$99–$150</td><td>Get first review fast</td></tr>
+      <tr><td>1–2 reviews</td><td>Full audit + fix report</td><td>$350–$500</td><td>Build portfolio</td></tr>
+      <tr><td>3–5 reviews</td><td>Audit + implementation</td><td>$700–$1,200</td><td>Real income begins</td></tr>
+      <tr class="highlight-row"><td>5+ reviews</td><td>Monthly retainer</td><td>$600–$1,500/mo</td><td>Recurring revenue</td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-label">The Only 3 Metrics That Matter in Month 1</div>
+    <ul class="checklist">
+      <li><span class="icon">①</span><div><strong>Proposals sent per week</strong> — target 25–35. Volume is the only thing in your control at the start.</div></li>
+      <li><span class="icon">②</span><div><strong>Reply rate</strong> — if below 5%, rewrite your proposal opening. Test two versions simultaneously.</div></li>
+      <li><span class="icon">③</span><div><strong>One 5-star review</strong> — this is the only milestone for Month 1. Everything else follows from it.</div></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Income Projection (conservative)</div>
+    <table class="rate-table">
+      <tr><th>Month</th><th>Reviews</th><th>Clients</th><th>Est. Income (USD)</th><th>₹ Equivalent</th></tr>
+      <tr><td>Month 1</td><td>0→1</td><td>1–2</td><td>$150–$300</td><td>₹12k–25k</td></tr>
+      <tr><td>Month 2</td><td>1→3</td><td>2–4</td><td>$600–$1,200</td><td>₹50k–1L</td></tr>
+      <tr class="highlight-row"><td>Month 3</td><td>3–5</td><td>3–5</td><td>$1,500–$3,000</td><td>₹1.25L–2.5L</td></tr>
+    </table>
+    <div class="note-box"><strong>Reality check</strong>Month 1 is slow and that's normal. You're buying reviews, not income. The compounding starts in Month 2. Don't quit in Week 3.</div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function copyText(btn) {
+  const box = btn.parentElement;
+  const text = box.textContent.replace('Copy', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied ✓';
+    btn.style.background = '#2D5A27';
+    setTimeout(() => { btn.textContent = 'Copy'; btn.style.background = ''; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
